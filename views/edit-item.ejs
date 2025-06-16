@@ -52,10 +52,10 @@
                     <div class="mb-3">
                         <label for="sector" class="form-label">Secteur</label>
                         <select  name="sector" id="sector" class="form-select">
-                            <option value="industrie">Industrie</option>
-                            <option value="informatique">Informatique</option>
-                            <option value="sante">Santé</option>
-                            <option value="education">Education</option>
+                            <option value="industrie" <%= contact.secteur === 'Industrie' ? 'selected' : '' %> >Industrie</option>
+                            <option value="informatique" <%= contact.secteur === 'Informatique' ? 'selected' : '' %> >Informatique</option>
+                            <option value="sante" <%= contact.secteur === 'Santé' ? 'selected' : '' %> >Santé</option>
+                            <option value="education" <%= contact.secteur === 'Education' ? 'selected' : '' %> >Education</option>
                         </select>
                     </div>
 
