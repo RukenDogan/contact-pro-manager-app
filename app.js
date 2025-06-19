@@ -3,6 +3,7 @@ const bodyParser = require('body-parser'); // Pour parser le corps des requêtes
 const mongoose = require('mongoose'); // Pour interagir avec MongoDB
 const dotenv = require('dotenv'); // Pour charger les variables d'environnement
 const path = require('path'); // Pour gérer les chemins de fichiers
+const session = require('express-session'); // Pour gérer les sessions
 
 // Importation des routes de l'API utilisateur et des tâches
 const userApiRoute = require('./routes/userApiRoute'); // Importation des routes de l'API utilisateur
@@ -36,6 +37,21 @@ mongoose.connect(process.env.MONGO_CONNECTION)
 // indique l'url de départ des routes de l'api
 app.use("/models/user", userApiRoute);
 app.use("/models/contact", contactApiRoute);
+
+// Middleware sessions
+app.use(session({
+    secret: 'contactpro-secret',
+    resave: false,
+    saveUninitialized: false
+}));
+
+// Corps des requêtes (formulaires)
+app.use(express.urlencoded({ extended: true })); // pour POST login
+
+// Routes HTML
+const webRoutes = require('./routes/homeRoute');
+app.use('/', webRoutes);
+
 
 // lance le serveur sur le port
 app.listen(process.env.PORT, () => {
