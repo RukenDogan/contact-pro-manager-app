@@ -1,59 +1,52 @@
-const Task = require("../models/task");
+const contact = require("../models/contact");
 const User = require("../models/user");
 
-// récupére la liste des tasks
-module.exports.getTasks = async (query) => {
 
-    try {
-        let tasks = await Task.find(query);
-        return tasks;    
-    } catch(e) {
-        // Log Errors
-        throw Error(`Error while query all Tasks : ${e.message}`)
-    }
-}
+// récupère les contacts liés à un utilisateur
+module.exports.getContactsByUserId = async (userId) => {
+  try {
+    return await Contact.find({ user: userId }).exec();
+  } catch (e) {
+    throw Error(`Error while querying contacts: ${e.message}`);
+  }
+};
 
-// récupère une task suivant son id
-module.exports.getTask = async (query) => {
+
+// récupère une contact par son id
+module.exports.getContactById = async (contactId) => {
 
     try { 
-        let task = await Task.findOne(query).populate('user');
-        return task;    
+        return await Contact.findById(contactId).populate('user').exec();   
     } catch(e) {
         // Log Errors
-        throw Error(`Error while query one Task : ${e.message}`)
+        throw Error(`Error while query one Contact : ${e.message}`)
     }
 }
 
-// crée une task
-module.exports.createTask = async (task) => {
+// Crée un contact
+module.exports.createContact = async (contactData) => {
+  try {
+    const newContact = new Contact(contactData);
+    return await newContact.save();
+  } catch (e) {
+    throw Error(`Erreur lors de la création du contact : ${e.message}`);
+  }
+};
 
-    try {
-        let newTask = await task.save();
-        await User.findByIdAndUpdate({_id: newTask.user}, { $push: { tasks: newTask._id } });     
-        return newTask;
-    } catch(e) {
-        // Log Errors
-        throw Error(`Error while save Task : ${e.message}`)
-    }    
-}
+// Met à jour un contact
+module.exports.updateContact = async (contactId, updatedData) => {
+  try {
+    return await Contact.findByIdAndUpdate(contactId, updatedData, { new: true });
+  } catch (e) {
+    throw Error(`Erreur lors de la mise à jour du contact : ${e.message}`);
+  }
+};
 
-// met à jour une task
-module.exports.updateTask = async (query, task) => {
-    try {
-        return await Task.updateOne(query, task);
-    } catch(e) {
-        // Log Errors
-        throw Error(`Error while update Task : ${e.message}`)
-    }          
-}
-
-// supprime une task
-module.exports.deleteTask = async (query) => {
-    try {
-        return await Task.deleteOne(query);
-    } catch(e) {
-        // Log Errors
-        throw Error(`Error while delete Task : ${e.message}`)
-    }          
-}
+// Supprime un contact
+module.exports.deleteContact = async (contactId) => {
+  try {
+    return await Contact.findByIdAndDelete(contactId);
+  } catch (e) {
+    throw Error(`Erreur lors de la suppression du contact : ${e.message}`);
+  }
+};

@@ -1,4 +1,5 @@
 const authService = require('../services/authService.js'); // Service d'authentification
+const contactApiService = require('../services/contactApiService.js'); // Service pour les contacts
 
 
 // Affiche la page de connexion
@@ -27,6 +28,12 @@ exports.login = async (req, res) => {
 };
 
 // Affiche la page d'accueil après connexion
-exports.showHomePage = (req, res) => {
-    res.render('home', { user: req.session.user });
+exports.showHomePage = async (req, res) => {
+  try {
+    const contacts = await contactApiService.getContactsByUserId(req.session.user.id);
+    res.render('home', { user: req.session.user, contacts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Erreur serveur');
+  }
 };
