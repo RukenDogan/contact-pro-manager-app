@@ -4,10 +4,10 @@ const authController = require('../controllers/authController'); // Importation 
 const authMiddleware = require('../middlewares/authMiddleware'); // Middleware pour vérifier si l'utilisateur est authentifié
 
 // Affiche la page de connexion
-router.get('/', authController.showLoginPage);
+router.get('/connection', authController.showLoginPage);
 
 // Traite la soumission du formulaire de connexion
-router.post('/login', authController.login);
+router.post('/connection', authController.login);
 
 // Affiche la page d'accueil après connexion (protégée par session)
 router.get('/home', authMiddleware, authController.showHomePage);

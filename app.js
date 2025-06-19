@@ -23,11 +23,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-    res.render('home'); // affiche home.ejs
-});
-
-app.get("/", (req, res) => {
-    res.render("home");
+    res.redirect('/connection'); // affiche home.ejs
 });
 
 mongoose.connect(process.env.MONGO_CONNECTION)
