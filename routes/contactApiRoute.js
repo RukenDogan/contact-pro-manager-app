@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const contactApiControlleur = require("../controllers/contactApiController");
 
-router.get("/task", contactApiControlleur.getContacts);
+router.get("/", contactApiControlleur.getContacts);
 router.get("/:id", contactApiControlleur.getContacts);
 router.post("/", contactApiControlleur.createContact);
 router.put("/:id", contactApiControlleur.updateContact);

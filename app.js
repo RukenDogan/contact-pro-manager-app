@@ -8,6 +8,7 @@ const session = require('express-session'); // Pour gérer les sessions
 // Importation des routes de l'API utilisateur et des tâches
 const userApiRoute = require('./routes/userApiRoute'); // Importation des routes de l'API utilisateur
 const contactApiRoute = require('./routes/contactApiRoute'); // Importation des routes de l'API des tâches
+const authController = require('./controllers/authController'); // Importation du contrôleur d'authentification
 
 // crée l'app express
 const app = express();
@@ -22,10 +23,12 @@ app.set('views', path.join(__dirname, 'views'));
 // pour les api
 app.use(bodyParser.json());
 
+// Configuration de la page d'accueil
 app.get('/', (req, res) => {
     res.redirect('/connection'); // affiche home.ejs
 });
 
+// Configuration du dossier public pour les fichiers statiques (CSS, JS, images)
 mongoose.connect(process.env.MONGO_CONNECTION)
 .then(() => console.log('Connexion à MongoDB réussie !'))
 .catch((e) => console.log('Connexion à MongoDB échouée ! ' + e));
@@ -48,6 +51,8 @@ app.use(express.urlencoded({ extended: true })); // pour POST login
 const webRoutes = require('./routes/homeRoute');
 app.use('/', webRoutes);
 
+// Route pour afficher la page de connexion
+app.post('/connection', authController.login); // Traite la connexion
 
 // lance le serveur sur le port
 app.listen(process.env.PORT, () => {
