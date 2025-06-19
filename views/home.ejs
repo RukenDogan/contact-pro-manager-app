@@ -42,7 +42,7 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                            <!-- si aucun contact n'est trouvé -->
                             <% if (contacts.length===0) { %>
                                 <tr>
                                     <td colspan="7" class="text-center">Aucun contact trouvé.</td>
@@ -117,7 +117,7 @@
         btnDeletes.forEach((btnDelete) => {
             // ajoute l'évènement click sur chaque bouton 
             btnDelete.addEventListener("click", (e) => {
-                if (window.confirm("Voulez vous supprimer ce contact ?")) {
+                if (window.confirm("Voulez-vous supprimer ce contact ?")) {
                     // redirige vers l'url /contact/delete/id
                     window.location.href = "/contact/delete/" + btnDelete.getAttribute("data-id");
                 }

@@ -15,54 +15,51 @@
                 <h3>INFORMATION CONTACT</h3>
             </div>
             <div class="card-content">
-
                 <table class="table">
                     <tbody>
-                        
                         <tr>
                             <td width="30%">ID :</td>
-                            <td>1</td>
+                            <td><%= contact._id %></td>
                         </tr>
                         <tr>
-                            <td width="30%">Nom :</td>
-                            <td>Rondeau</td>
+                            <td>Nom :</td>
+                            <td><%= contact.lastname %></td>
                         </tr>
                         <tr>
-                            <td width="30%">Prénom :</td>
-                            <td>Julien</td>
+                            <td>Prénom :</td>
+                            <td><%= contact.firstname %></td>
                         </tr>
                         <tr>
-                            <td width="30%">Société :</td>
-                            <td>Apollo</td>
+                            <td>Société :</td>
+                            <td><%= contact.company %></td>
                         </tr>
                         <tr>
-                            <td width="30%">Adresse :</td>
-                            <td>96 Bd Marius Vivier Merle, 69003 Lyon</td>
+                            <td>Adresse :</td>
+                            <td><%= contact.adress %></td>
                         </tr>                            
                         <tr>
-                            <td width="30%">Tel</td>
-                            <td>04 78 35 45 70</td>
+                            <td>Téléphone :</td>
+                            <td><%= contact.tel %></td>
                         </tr>     
                         <tr>
-                            <td width="30%">Email</td>
-                            <td>rondeau@appolo.fr</td>
+                            <td>Email :</td>
+                            <td><%= contact.email %></td>
                         </tr>     
                         <tr>
-                            <td width="30%">Secteur</td>
-                            <td>Informatique</td>
+                            <td>Secteur :</td>
+                            <td><%= contact.sector %></td>
                         </tr>     
                         <tr>
-                            <td width="30%">Actif</td>
-                            <td>Oui</td>
+                            <td>Actif :</td>
+                            <td><%= contact.active ? "Oui" : "Non" %></td>
                         </tr> 
                         <tr>
                             <td colspan="2">
                                 <div class="d-grid gap-2 col-6 mx-auto">
-                                    <a href="/" id="retour" class="btn btn-dark">RETOUR</a>
+                                    <a href="/home" class="btn btn-dark">RETOUR</a>
                                 </div>
                             </td>
                         </tr> 
-                    
                     </tbody>                        
                 </table>
             </div>
@@ -70,3 +67,4 @@
     </div>
 </body>
 </html>
+

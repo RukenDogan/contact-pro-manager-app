@@ -1,7 +1,7 @@
 const express = require("express"); // Importation du framework Express
 const router = express.Router(); // Création d'un routeur Express
-const userApiController = require("../controllers/userApiController");
-const user = require("../models/user")
+const userApiController = require("../controllers/userApiController"); // Importation du contrôleur d'API utilisateur
+const user = require("../models/user") // Modèle de user pour interagir avec la base de données
 
 router.get("/", userApiController.getUsers);
 router.get("/:id", userApiController.getUser);
