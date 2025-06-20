@@ -1,34 +1,23 @@
-const userApiService = require("../services/userApiService");
+const contactApiService = require("../services/contactApiService"); // Importation du service contactApiService
 const Contact = require("../models/contact");
-const bcrypt = require("bcrypt");
 
 
-module.exports.getContacts = async (req, res) => {
-    try {
-        let contacts = await userApiService.getContacts({});
-        return res.status(200).json({ status: 200, data: users, message: "Contacts retrieved successfully" });
-    } catch (e) {
-        return res.status(400).json({ status: 400, message: e.message});
-    }
+module.exports.home = async (req, res) => {
+  try {
+    const contacts = await Contact.find({ user: req.user._id }); // ← important
+    res.render("home", { contacts });
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
 };
 
-module.exports.getContact = async (req, res) => {
-    try {
-        let contact = await userApiService.getContact({ _id: req.params.id });
-        return res.status(200).json({ status: 200, data: user, message: "Contact retrieved successfully" });
-    } catch (e) {
-        return res.status(400).json({ status: 400, message: e.message});
-    }
-};
-
-
-// récupére la liste des users
+// récupére la liste des contacts
 module.exports.getContacts = async (req, res) => {
     try {
-        const contacts = await userApiService.getAllContacts();
+        const contacts = await contactApiService.getContactsByUserId(req.query.userId); // filtrer par userId
         return res.status(200).json({
             status: 200,
-            data: users,
+            data: contacts,
             message: "Contacts successfully retrieved"
         });
     } catch (e) {
@@ -40,46 +29,42 @@ module.exports.getContacts = async (req, res) => {
 };
 
 
-// crée une user
-module.exports.createContact = async (req, res) => {
-    // hash le mdp avec bcrypt
-    let salt = await bcrypt.genSalt(10);
-    req.body.password = await bcrypt.hash(req.body.password, salt);
-        try {
-        // hash le mdp avec bcrypt
-        let salt = await bcrypt.genSalt(10);
-        req.body.password = await bcrypt.hash(req.body.password, salt);
-
-        let contact = await userApiService.updateUser(contact);
-        contact = await userApiService.getUser(contact);
-        return res.status(201).json({ status: 201, data: user, message: "Contact successfully created" });
-    } catch (e) {
-        return res.status(400).json({ status: 400, message: e.message});
-    }
-}
-
-// update un user
-module.exports.updateContact = async (req, res) => {
-
+// récupère un contact suivant son id
+module.exports.getContact = async (req, res) => {
     try {
-        // hash le mdp avec bcrypt
-        let salt = await bcrypt.genSalt(10);
-        req.body.password = await bcrypt.hash(req.body.password, salt);
+        const contact = await contactApiService.getContactById(req.params.id);
+        return res.status(200).json({ status: 200, data: contact, message: "Contact retrieved successfully" });
+    } catch (e) {
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+};
 
-        let result = await userApiService.updateContact({ _id: req.params.id }, req.body);
+// crée un contact
+module.exports.createContact = async (req, res) => {
+    try {
+        const contact = await contactApiService.createContact(req.body);
+        return res.status(201).json({ status: 201, data: contact, message: "Contact successfully created" });
+    } catch (e) {
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+};
+
+// update un contact
+module.exports.updateContact = async (req, res) => {
+    try {
+        const result = await contactApiService.updateContact(req.params.id, req.body);
         return res.status(200).json({ status: 200, data: result, message: "Contact successfully updated" });
     } catch (e) {
-        return res.status(400).json({ status: 400, message: e.message});
+        return res.status(400).json({ status: 400, message: e.message });
     }
-}
+};
 
-// supprime un user
+// supprime un contact
 module.exports.deleteContact = async (req, res) => {
     try {
-        // hash le mdp avec bcrypt
-        let result = await userApiService.deleteContact({ _id: req.params.id }, req.body);
-        return res.status(200).json({ status: 200, data: result, message: "Contact successfully delteted" });
+        const result = await contactApiService.deleteContact(req.params.id);
+        return res.status(200).json({ status: 200, data: result, message: "Contact successfully deleted" });
     } catch (e) {
-        return res.status(400).json({ status: 400, message: e.message});
+        return res.status(400).json({ status: 400, message: e.message });
     }
-}
+};

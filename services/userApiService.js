@@ -14,7 +14,7 @@ module.exports.getUsers = async (query) => {
 // récupère un user suivant son id
 module.exports.getUser = async (query) => {
     try {
-        let user = await User.findOne(query).populate('tasks'); // Popule les tâches associées
+        let user = await User.findOne(query); // Utilisation de findOne pour récupérer un seul utilisateur
         return user;
     } catch (e) {
         // Log Errors

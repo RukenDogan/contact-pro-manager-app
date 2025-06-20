@@ -3,7 +3,7 @@ const router = express.Router();
 const contactApiControlleur = require("../controllers/contactApiController");
 
 router.get("/", contactApiControlleur.getContacts);
-router.get("/:id", contactApiControlleur.getContacts);
+router.get("/:id", contactApiControlleur.getContact);
 router.post("/", contactApiControlleur.createContact);
 router.put("/:id", contactApiControlleur.updateContact);
 router.delete("/:id", contactApiControlleur.deleteContact);
