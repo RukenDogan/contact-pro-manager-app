@@ -34,8 +34,9 @@ mongoose.connect(process.env.MONGO_CONNECTION)
 .catch((e) => console.log('Connexion à MongoDB échouée ! ' + e));
 
 // indique l'url de départ des routes de l'api
-app.use("/models/user", userApiRoute);
-app.use("/models/contact", contactApiRoute);
+app.use("/api/user", userApiRoute);
+app.use("/api/contact", contactApiRoute);
+// app.use("/", authRoute);
 
 // Middleware sessions
 app.use(session({

@@ -1,4 +1,4 @@
-const contact = require("../models/contact");
+const Contact = require("../models/contact");
 const User = require("../models/user");
 
 

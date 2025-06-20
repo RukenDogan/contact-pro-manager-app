@@ -1,5 +1,6 @@
 const userApiService = require("../services/userApiService"); // Importation du service userApiService
 const bcrypt = require("bcrypt"); // Importation de bcrypt pour le hachage des mots de passe
+const User = require("../models/user"); // Importation du modèle User
 
 // Contrôleur pour gérer les requêtes liées aux utilisateurs
 module.exports.getUsers = async (req, res) => {
@@ -27,7 +28,8 @@ module.exports.createUser = async (req, res) => {
         let salt = await bcrypt.genSalt(10);
         req.body.password = await bcrypt.hash(req.body.password, salt);
 
-        let user = await userApiService.createUser(req.body); // Corrigé ici aussi
+        let user = new User(req.body); // Création d'une nouvelle instance de User avec les données du corps de la requête
+        user = await userApiService.createUser(user); // Corrigé ici aussi
         return res.status(201).json({ status: 201, data: user, message: "User successfully created" });
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message });
