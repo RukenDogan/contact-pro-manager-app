@@ -36,7 +36,6 @@ mongoose.connect(process.env.MONGO_CONNECTION)
 // indique l'url de départ des routes de l'api
 app.use("/api/user", userApiRoute);
 app.use("/api/contact", contactApiRoute);
-// app.use("/", authRoute);
 
 // Middleware sessions
 app.use(session({

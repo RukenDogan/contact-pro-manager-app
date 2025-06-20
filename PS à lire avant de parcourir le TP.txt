@@ -1,0 +1,7 @@
+Remarque concernant le fonctionnement des requêtes :
+Mes requêtes, notamment celle de création de contacts, fonctionnaient correctement jusqu'à ce que j’apporte des modifications au code pour intégrer les fonctionnalités des boutons "ajouter", "modifier" et "supprimer" via l’interface.
+Depuis ces ajustements, les requêtes renvoient désormais des champs vides, et je n’ai pas réussi à identifier précisément l’origine du problème, malgré plusieurs heures de recherche et de tests.
+
+Je rends donc un TP partiellement fonctionnel, avec une logique en place mais qui reste à finaliser sur certains aspects techniques.
+
+Merci.
