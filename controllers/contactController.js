@@ -31,15 +31,23 @@ module.exports.createContact = async (req, res) => {
 module.exports.editContactForm = async (req, res) => {
   try {
     const contact = await contactApiService.getContactById(req.params.id);
+    if (!contact) {
+      return res.status(404).send("Contact non trouvé");
+    }
     res.render("edit-item", { contact });
   } catch (e) {
-    res.status(404).send("Contact non trouvé");
+    console.error(e);
+    res.status(500).send("Erreur serveur");
   }
 };
+
 
 // Traite la modification d’un contact
 module.exports.updateContact = async (req, res) => {
   try {
+    if (!('active' in req.body)) {
+    req.body.active = false;
+    }
     await contactApiService.updateContact(req.params.id, req.body);
     res.redirect("/home");
   } catch (e) {
@@ -69,4 +77,3 @@ module.exports.showContact = async (req, res) => {
     res.status(500).send("Erreur lors de la récupération du contact");
   }
 };
-
