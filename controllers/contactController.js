@@ -1,5 +1,6 @@
 const contactApiService = require("../services/contactApiService"); // Importation du service contactApiService
 
+
 // Affiche la page listant les contacts de l’utilisateur connecté
 module.exports.home = async (req, res) => {
   try {

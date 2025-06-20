@@ -1,7 +1,6 @@
 const authService = require('../services/authService.js'); // Service d'authentification
 const contactApiService = require('../services/contactApiService.js'); // Service pour les contacts
 
-
 // Affiche la page de connexion
 exports.showLoginPage = (req, res) => {
     res.render('connection', { message : '' }); // ou { error: '' }

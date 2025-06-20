@@ -12,8 +12,8 @@ router.get('/connection', authController.showLoginPage);
 // Traite la soumission du formulaire de connexion
 router.post('/connection', authController.login);
 
-// Affiche la page d'accueil après connexion (protégée par session)
-router.get('/home', authMiddleware, authController.showHomePage);
+// // Affiche la page d'accueil après connexion (protégée par session)
+// router.get('/home', authMiddleware, authController.showHomePage);
 
 // Déconnexion
 router.get('/logout', (req, res) => {
@@ -22,14 +22,14 @@ router.get('/logout', (req, res) => {
     });
 });
 
-// Route pour afficher un contact par ID
-router.get('/contact/:id', authMiddleware, async (req, res) => {
-    try {
-        const contact = await Contact.findById(req.params.id);
-        res.render('item', { contact });
-    } catch (e) {
-        res.status(500).send("Erreur lors de la récupération du contact");
-    }
-});
+// // Route pour afficher un contact par ID
+// router.get('/contact/:id', authMiddleware, async (req, res) => {
+//     try {
+//         const contact = await Contact.findById(req.params.id);
+//         res.render('item', { contact });
+//     } catch (e) {
+//         res.status(500).send("Erreur lors de la récupération du contact");
+//     }
+// });
 
 module.exports = router; // Exportation du routeur

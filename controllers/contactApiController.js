@@ -1,16 +1,6 @@
 const contactApiService = require("../services/contactApiService"); // Importation du service contactApiService
 const Contact = require("../models/contact");
 
-
-module.exports.home = async (req, res) => {
-  try {
-    const contacts = await Contact.find({ user: req.user._id }); // ← important
-    res.render("home", { contacts });
-  } catch (e) {
-    res.status(500).send(e.message);
-  }
-};
-
 // récupére la liste des contacts
 module.exports.getContacts = async (req, res) => {
     try {

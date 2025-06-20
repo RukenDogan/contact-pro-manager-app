@@ -48,12 +48,17 @@ app.use(session({
 // Corps des requêtes (formulaires)
 app.use(express.urlencoded({ extended: true })); // pour POST login
 
+// Route pour afficher la page de connexion
+const contactRoute = require('./routes/contactRoute');
+app.use('/', contactRoute);
+
 // Routes HTML
 const webRoutes = require('./routes/homeRoute');
 app.use('/', webRoutes);
 
 // Route pour afficher la page de connexion
 app.post('/connection', authController.login); // Traite la connexion
+
 
 // lance le serveur sur le port
 app.listen(process.env.PORT, () => {
